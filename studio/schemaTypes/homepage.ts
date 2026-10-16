@@ -98,7 +98,7 @@ export const homepage = defineType({
           type: 'text',
           rows: 3,
           validation: (rule: any) => rule.required(),
-        }
+        },
       ],
     }),
     defineField({
@@ -123,6 +123,11 @@ export const homepage = defineType({
               type: 'string',
               title: 'Publisher',
               validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'publishDate',
+              type: 'date',
+              title: 'Publish date',
             }),
             defineField({
               name: 'url',
