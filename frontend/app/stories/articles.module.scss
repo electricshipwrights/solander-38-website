@@ -90,6 +90,14 @@
     height: auto;
     margin-left: -30%;
     margin-top: -1rem;
+    // Only visible as alt text when the still is missing
+    font-size: 0.75rem;
+
+    // No still to crop, so keep the alt text inside the card
+    &.missing {
+      width: 100%;
+      margin: 0;
+    }
   }
 
   @media screen and (max-width: 900px) {

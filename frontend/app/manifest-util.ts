@@ -36,6 +36,11 @@ export function getStoryStill(
   );
 }
 
+/** False until the capture script has rendered this story. */
+export function hasStoryStill(slug: string): boolean {
+  return slug in storyStills.stories;
+}
+
 export function getModelManifest(): ModelManifest {
   return modelManifest as unknown as ModelManifest;
 }
