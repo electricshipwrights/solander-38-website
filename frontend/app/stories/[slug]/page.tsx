@@ -46,7 +46,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
     description: article.subtitle || "",
     icons: `${SITE_URL}/rising-tide.svg`,
     authors: article.authors?.map(author => ({name: author.name})),
-    publisher: 'Rising Tide Research Foundation',
+    publisher: 'Electric Shipwrights Society',
     openGraph: {
       type: 'article',
       description: article.subtitle || "",

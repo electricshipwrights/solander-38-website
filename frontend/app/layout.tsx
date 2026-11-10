@@ -6,22 +6,15 @@ import "./globals.scss";
 import type { Metadata } from "next";
 import { AcuminPro } from "./_fonts";
 import { SanityLive } from "@/sanity/lib/live";
-import { SITE_URL } from "@/app/consts";
+import { DEFAULT_OG_IMAGE, SITE_URL } from "@/app/consts";
 
 export const metadata: Metadata = {
-  title: "Solander 38 | Rising Tide Research Foundation",
+  title: "Solander 38 | Electric Shipwrights Society",
   description:
     "A self-sufficient, solar-electric, coastal cruising power catamaran.",
   icons: `${SITE_URL}/rising-tide.svg`,
   openGraph: {
-    images: [
-      {
-        url: `https://cdn.sanity.io/images/qjczz6gi/production/5d507d27f9b7a0f0cd351429c559057b92b7c23e-1200x630.png`,
-        width: 1200,
-        height: 630,
-        alt: `Solander 38`,
-      },
-    ],
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 

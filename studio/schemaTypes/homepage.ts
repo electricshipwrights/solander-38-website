@@ -42,6 +42,7 @@ export const homepage = defineType({
       type: 'image',
       name: 'image',
       title: 'Featured photo',
+      description: 'Will link to Photography.',
       options: {
         hotspot: true,
         metadata: ['blurhash', 'lqip', 'palette', 'exif', 'location'],
@@ -51,6 +52,7 @@ export const homepage = defineType({
     defineField({
       name: 'drawing',
       title: 'Featured drawing',
+      description: 'Will link to Drawings.',
       type: 'string',
       components: {
         input: DrawingDropdownInput,
@@ -186,6 +188,17 @@ export const homepage = defineType({
           },
         }),
       ],
+    }),
+
+    defineField({
+      type: 'image',
+      name: 'ogImage',
+      title: 'Share image',
+      description:
+        'Shown when the homepage is shared on social media. 1200×630. Falls back to the built-in image when empty.',
+      options: {
+        hotspot: true,
+      },
     }),
   ],
   preview: {

@@ -17,15 +17,18 @@ export const storyDefaults = {
     {
       dir: "preview",
       frame: {
-        logo: "/RTRF_Logo-01_Stacked_BLK.svg",
+        logo: "/ESS_01-Logo_BLK.svg",
         markSide: "right",
         // set to "/solander-38-wordmark.svg" to stack it above the logo again
         wordmark: null,
         showArticleTitle: false,
         grid: 20,
         marginCells: 2,
-        logoNudgeY: 2,
-        logoCells: 9,
+        logoNudgeY: 0,
+        // the logo's three lines of lettering are 110.12 of its 647.42 units
+        // apart; sized so that is exactly 2 cells, every baseline lands on a
+        // grid line
+        logoCells: (647.42 / 110.12) * 2,
         gapCells: 1,
         articleTitleCells: 16,
         articleTitleSize: 1.6,

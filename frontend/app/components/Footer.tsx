@@ -1,7 +1,6 @@
 import Link from "next/link";
 import styles from "./footer.module.scss";
 import Logo from "./Logo";
-import LogoStacked from "./LogoStacked";
 import NewsletterForm from "./NewsletterForm";
 
 export default async function Footer({ minimal = false }) {
@@ -12,17 +11,17 @@ export default async function Footer({ minimal = false }) {
           <Link
             className={styles.logo}
             target="_blank"
-            href="https://risingtideresearch.org"
-            aria-label="Rising Tide Research Foundation"
+            href="https://electricshipwrights.org"
+            aria-label="Electric Shipwrights Society"
           >
-            {minimal ? <LogoStacked /> : <Logo />}
+            <Logo />
           </Link>
         </div>
         {!minimal ? (
           <>
             <div className={styles.logo__spacer}></div>
             <div>
-              <h6>Rising Tide Research Foundation</h6>
+              <h6>Electric Shipwrights Society</h6>
               <p>
                 is a not&#8209;for&#8209;profit society established to conduct
                 open&#8209;source research advancing electric boat design and to
@@ -42,12 +41,12 @@ export default async function Footer({ minimal = false }) {
               <p>
                 is an effort to document and share designs, processes, and
                 research from Solander&nbsp;38, the first vessel reference design by
-                Rising&nbsp;Tide Research Foundation.
+                Electric&nbsp;Shipwrights Society.
               </p>
             </div>
             <div>
               <h6>Connect with us</h6>
-              <p>info@risingtideresearch.org</p>
+              <p>info@electricshipwrights.org</p>
             </div>
 
             <div>

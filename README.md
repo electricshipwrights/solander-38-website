@@ -41,13 +41,13 @@ The pipeline finishes in the front end with `npm run stills`, which re-renders t
 
 ### License
 
-© 2025-2026 Rising Tide Research Foundation. This repository is dual-licensed.
+© 2025-2026 Electric Shipwrights Society. This repository is dual-licensed.
 
 | | License | Covers |
 |--|---------|--------|
 | **Code** | [MIT](LICENSE) | Everything in `frontend/app/`, `frontend/sanity/`, `studio/`, and `scripts/`: the Next.js front end, the Sanity Studio and schemas, and the Rhino export/optimization pipeline |
 | **Content & 3D assets** | [CC BY 4.0](LICENSE-CC-BY-4.0) | Everything under `frontend/public/`: the exported GLB models (`models*/`, `models-jig*/`, `models-battery*/`), technical drawings, photographs, logos, and generated manifests — and all editorial content authored in Sanity (stories, captions, component data) |
 
-Both licenses require attribution: credit **Rising Tide Research Foundation** and link back to this repository or https://solander38.com.
+Both licenses require attribution: credit **Electric Shipwrights Society** and link back to this repository or https://solander38.com.
 
 Third-party assets are excluded from the above and retain their original licenses — notably the HDRI environment maps in `frontend/public/hdri/` ([Poly Haven](https://polyhaven.com), CC0) and the `gltfpack` binary in `scripts/` ([meshoptimizer](https://github.com/zeux/meshoptimizer), MIT).

@@ -16,7 +16,8 @@ import Search from "./components/Search/Search";
 import { formatDate } from "./utils";
 import { DrawingCard } from "./drawings/DrawingCard";
 import { PhotoImage } from "./components/PhotoImage";
-import { Image as SanityImage } from "./components/Image";
+import { Image as SanityImage, urlForImage } from "./components/Image";
+import { DEFAULT_OG_IMAGE } from "./consts";
 import Image from "next/image";
 import { Drawing } from "./drawings/types";
 import { getDrawingsManifest, getHomepageStills } from "./manifest-util";
@@ -24,22 +25,25 @@ import Link from "next/link";
 import NewsletterForm from "./components/NewsletterForm";
 import { LiaArrowRightSolid, LiaArrowUpSolid } from "react-icons/lia";
 
-const OG_IMAGE = {
-  url: "https://cdn.sanity.io/images/qjczz6gi/production/5d507d27f9b7a0f0cd351429c559057b92b7c23e-1200x630.png",
-  width: 1200,
-  height: 630,
-  alt: "Solander 38",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { data } = await fetchHomepage();
+  const ogImage = data?.ogImage?.asset
+    ? {
+        ...DEFAULT_OG_IMAGE,
+        url: urlForImage(data.ogImage).width(1200).height(630).fit("crop").url(),
+      }
+    : DEFAULT_OG_IMAGE;
 
-export const metadata: Metadata = {
-  title: "Solander 38 | Rising Tide Research Foundation",
-  openGraph: {
-    title: "Solander 38 | Rising Tide Research Foundation",
-    description:
-      "A self-sufficient, solar-electric, coastal cruising power catamaran.",
-    images: [OG_IMAGE],
-  },
-};
+  return {
+    title: "Solander 38 | Electric Shipwrights Society",
+    openGraph: {
+      title: "Solander 38 | Electric Shipwrights Society",
+      description:
+        "A self-sufficient, solar-electric, coastal cruising power catamaran.",
+      images: [ogImage],
+    },
+  };
+}
 
 function ExternalLinkArrow() {
   return (
@@ -171,7 +175,7 @@ export default async function Page() {
               {firstArticle && (
                 <>
                   <p>
-                    For an overview by RTRF Research Director{" "}
+                    For an overview by Electric Shipwrights Society Research Director{" "}
                     <Link
                       style={{ whiteSpace: "nowrap" }}
                       href={`${URLS.PEOPLE}#${"avi-bryant"}`}
@@ -393,7 +397,7 @@ export default async function Page() {
             <div className={styles["home__section"]}>
               <h4>Contact</h4>
               <p>
-                Connect with us via email info@risingtideresearch.org and
+                Connect with us via email info@electricshipwrights.org and
                 subscribe to our newsletter:
               </p>
               <NewsletterForm />

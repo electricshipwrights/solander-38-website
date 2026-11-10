@@ -53,6 +53,13 @@ export type Homepage = {
     crop?: SanityImageCrop
     _type: 'image'
   }
+  ogImage?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+  }
   drawing: string
   sectionDescriptions: {
     stories: string

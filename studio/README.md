@@ -1,4 +1,4 @@
-# Rising Tide Sanity CMS
+# Electric Shipwrights Society Sanity CMS
 Codebase for https://rising-tide.sanity.studio
 
 ## Local development

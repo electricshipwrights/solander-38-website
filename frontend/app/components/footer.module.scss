@@ -26,7 +26,7 @@
       }
 
       .logo {
-        max-width: 20rem;
+        max-width: 14rem;
         margin: 1rem auto 0 auto;
       }
     }
@@ -35,7 +35,7 @@
       width: 100%;
       padding: 0 1rem;
       .logo {
-        max-width: 20rem;
+        max-width: 14rem;
         margin: 0 auto;
       }
     }
@@ -95,13 +95,17 @@
 
 .logo {
   display: block;
+  max-width: 10rem;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
   svg {
     display: block;
     overflow: visible;
-    &:hover {
-      background: var(--ocean-fog-blue);
+    g {
+      transition: fill 0.15s ease-out;
+    }
+    &:hover g {
+      fill: var(--ocean-fog-blue);
     }
   }
 }

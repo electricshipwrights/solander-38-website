@@ -40,7 +40,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
         },
       ],
     },
-    publisher: 'Rising Tide Research Foundation'
+    publisher: 'Electric Shipwrights Society'
   }
 }
 

@@ -349,7 +349,6 @@ async function composite(page, modelDataUrl, shot, frame) {
         stage.appendChild(heading);
       }
 
-      // on white so the grid does not run through the marks
       const stack = document.createElement("div");
       Object.assign(stack.style, {
         position: "absolute",
@@ -359,7 +358,6 @@ async function composite(page, modelDataUrl, shot, frame) {
         display: "flex",
         flexDirection: "column",
         gap: `${grid * frame.gapCells}px`,
-        background: "#ffffff",
       });
       if (frame.wordmark) {
         stack.appendChild(await inkBox(frame.wordmark, markWidth));
