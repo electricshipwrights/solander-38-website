@@ -9,6 +9,21 @@ const PRODUCTION_SITE_URL =
 const PREVIEW_SITE_URL =
   process.env.SANITY_STUDIO_PREVIEW_SITE_URL || 'https://solander38-preview.netlify.app'
 
+// Requested right after a publish so the first visitor doesn't wait on the
+// re-render. Only landing pages: warming every story/drawing would be hundreds
+// of requests.
+const WARM_PATHS = ['/', '/stories', '/anatomy', '/people', '/photography', '/drawings']
+// gives Netlify time to purge its cache before the warm-up requests arrive
+const WARM_DELAY_MS = 2000
+
+function warmPages() {
+  setTimeout(() => {
+    WARM_PATHS.forEach((path) => {
+      fetch(`${PRODUCTION_SITE_URL}${path}`, {mode: 'no-cors'}).catch(() => {})
+    })
+  }, WARM_DELAY_MS)
+}
+
 type Status = 'idle' | 'publishing' | 'success' | 'error'
 
 const LABELS: Record<Status, string> = {
@@ -29,6 +44,7 @@ function DeployTool() {
         headers: {Authorization: `Bearer ${REVALIDATE_SECRET}`},
       })
       setStatus(res.ok ? 'success' : 'error')
+      if (res.ok) warmPages()
     } catch {
       setStatus('error')
     }

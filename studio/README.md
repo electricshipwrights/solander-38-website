@@ -16,7 +16,7 @@ SANITY_STUDIO_PRODUCTION_SITE_URL="" #Optional - defaults to https://solander38.
 ```
 
 ## Deploy tool
-The **Deploy** tool in the Studio's top bar pushes published content to the production site. **Publish content** calls `/api/revalidate` on the production site, which refreshes every page within seconds without a rebuild. Until someone presses it, production keeps showing the content from its last refresh or build. The preview site doesn't need it, because it always shows the latest published content.
+The **Deploy** tool in the Studio's top bar pushes published content to the production site. **Publish content** calls `/api/revalidate` on the production site, which refreshes every page within seconds without a rebuild. Each page re-renders on its first visit after that. The button then requests the main landing pages itself, so visitors don't wait on those renders. Until someone presses it, production keeps showing the content from its last refresh or build. The preview site doesn't need it, because it always shows the latest published content.
 
 Code changes and new files in `frontend/public/` (models, drawings, stills) reach production through a `git push`, which triggers a full Netlify build.
 

@@ -31,7 +31,7 @@ Publish content sends a POST to `/api/revalidate` on the production site, which 
 
 The preview site picks up newly published content without a rebuild at all: it bypasses the Next.js data cache and subscribes to the Sanity Live API.
 
-Neither site renders drafts — the client pins `perspective: "published"` in both cases. Preview differs in freshness, not in what it is allowed to see. Both read from the live Sanity API rather than the API CDN, which can lag a publish by up to a minute.
+Neither site renders drafts — the client pins `perspective: "published"` in both cases. Preview differs in freshness, not in what it is allowed to see. Pages on both sites read from the live Sanity API rather than the API CDN, which can lag a publish by up to a minute. Search (`/api/search`) uses the CDN. It queries Sanity on every search, so it can show published content before Publish content has been pressed.
 
 ---
 

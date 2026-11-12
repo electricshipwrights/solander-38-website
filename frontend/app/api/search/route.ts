@@ -6,6 +6,10 @@ import { NextResponse } from "next/server";
 
 const { files: allDrawings } = getDrawingsManifest();
 
+// search doesn't need the live API's freshness (the shared client skips the
+// CDN only so /api/revalidate re-renders pages with just-published content)
+const cdnClient = client.withConfig({ useCdn: true });
+
 export async function POST(request: Request) {
   try {
     const { query } = await request.json();
@@ -15,7 +19,7 @@ export async function POST(request: Request) {
     }
 
     const [results, articleIdMap] = await Promise.all([
-      client.fetch(searchQuery(), { query: query }),
+      cdnClient.fetch(searchQuery(), { query: query }),
       fetchArticleIdMap(),
     ]);
 
