@@ -8,7 +8,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ## Local development
 
 ### Add .env file
-Copy `.env.example` to `.env` and fill in the values. Project ID: [sanity.io/manage](https://sanity.io/manage) → Rising Tide Research Foundation. Read token: Sanity → API → Tokens.
+Copy `.env.example` to `.env` and fill in the values. Project ID: [sanity.io/manage](https://sanity.io/manage) → Rising Tide Research Foundation. Read token: Sanity → API → Tokens. `SANITY_REVALIDATE_SECRET` is only needed on the production Netlify site. It authorizes `/api/revalidate`, which the Studio's Deploy tool calls to refresh content (see the [root README](../README.md#deployments)).
 
 ### Install dependencies and run locally
 ```bash

@@ -18,15 +18,20 @@ Two separate Netlify sites share the same codebase and Sanity dataset but behave
 
 | | Preview | Production |
 |--|---------|------------|
-| Site | https://solander38-preview.netlify.app | https://solander38.netlify.app |
-| Build trigger | git push (auto) | Manual — Studio Deploy tool |
+| Site | https://solander38-preview.netlify.app | https://solander38.com |
+| Build trigger | git push (auto) | git push (auto) |
+| Content updates | Live, no action needed | Manual — Studio Deploy tool |
 | Content | Published | Published |
-| Content freshness | SSR on every request + Sanity Live API (SSE) | SSG at build time |
+| Content freshness | SSR on every request + Sanity Live API (SSE) | SSG at build, refreshed on demand via `/api/revalidate` |
 | `NEXT_PUBLIC_PREVIEW_SITE` | `true` | _(not set)_ |
 
-**There is no automatic webhook from Sanity to Netlify.** Production content only updates when a build is manually triggered from the Studio's Deploy tool (which calls a Netlify build hook). The preview site rebuilds on every `git push`, and picks up newly published content without a rebuild at all: it bypasses the Next.js data cache and subscribes to the Sanity Live API.
+**Production content only changes when someone presses Publish content in the Studio's Deploy tool** (or on the next `git push`, which rebuilds with whatever is published). There is no Sanity webhook, so publishing a document doesn't touch production on its own.
 
-Neither site renders drafts — the client pins `perspective: "published"` in both cases. Preview differs in freshness, not in what it is allowed to see.
+Publish content sends a POST to `/api/revalidate` on the production site, which clears the Next.js cache for every page. Pages re-render with the latest published content on their next request, with no rebuild. The request is authorized with a shared secret: `SANITY_STUDIO_REVALIDATE_SECRET` in the Studio must match `SANITY_REVALIDATE_SECRET` on the production Netlify site.
+
+The preview site picks up newly published content without a rebuild at all: it bypasses the Next.js data cache and subscribes to the Sanity Live API.
+
+Neither site renders drafts — the client pins `perspective: "published"` in both cases. Preview differs in freshness, not in what it is allowed to see. Both read from the live Sanity API rather than the API CDN, which can lag a publish by up to a minute.
 
 ---
 

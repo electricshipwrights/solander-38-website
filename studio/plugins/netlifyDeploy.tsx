@@ -3,23 +3,31 @@ import {definePlugin} from 'sanity'
 import {LaunchIcon, RocketIcon} from '@sanity/icons'
 import {Box, Button, Card, Stack, Text, Flex} from '@sanity/ui'
 
-const HOOK_URL = process.env.SANITY_STUDIO_NETLIFY_BUILD_HOOK_URL
+const REVALIDATE_SECRET = process.env.SANITY_STUDIO_REVALIDATE_SECRET
+const PRODUCTION_SITE_URL =
+  process.env.SANITY_STUDIO_PRODUCTION_SITE_URL || 'https://solander38.com'
 const PREVIEW_SITE_URL =
   process.env.SANITY_STUDIO_PREVIEW_SITE_URL || 'https://solander38-preview.netlify.app'
 
-type Status = 'idle' | 'deploying' | 'success' | 'error'
+type Status = 'idle' | 'publishing' | 'success' | 'error'
+
+const LABELS: Record<Status, string> = {
+  idle: 'Publish content',
+  publishing: 'Publishing…',
+  success: 'Content published',
+  error: 'Publish failed',
+}
 
 function DeployTool() {
   const [status, setStatus] = useState<Status>('idle')
 
-  async function handleDeploy() {
-    if (!HOOK_URL) {
-      setStatus('error')
-      return
-    }
-    setStatus('deploying')
+  async function handlePublish() {
+    setStatus('publishing')
     try {
-      const res = await fetch(HOOK_URL, {method: 'POST'})
+      const res = await fetch(`${PRODUCTION_SITE_URL}/api/revalidate`, {
+        method: 'POST',
+        headers: {Authorization: `Bearer ${REVALIDATE_SECRET}`},
+      })
       setStatus(res.ok ? 'success' : 'error')
     } catch {
       setStatus('error')
@@ -29,17 +37,17 @@ function DeployTool() {
   return (
     <Box padding={4} style={{maxWidth: 700, margin: '0 auto'}}>
       <Card padding={4} radius={2} shadow={1}>
-        <Stack padding={4}>
+        <Stack padding={4} space={4}>
           <Stack space={3}>
             <Text size={2} weight="semibold">
-              Deploy to Production
+              Publish content to production
             </Text>
             <Text size={1} muted>
-              Triggers a full rebuild and deploy of the production site with all{' '}
-              <strong>published</strong> content.
+              Refreshes every page on the production site with the latest{' '}
+              <strong>published</strong> content. Takes effect within seconds.
             </Text>
           </Stack>
-          <Flex gap={4} paddingTop={4}>
+          <Flex gap={4} align="center">
             <Button
               as="a"
               href={PREVIEW_SITE_URL}
@@ -51,22 +59,14 @@ function DeployTool() {
             />
             <Button
               icon={RocketIcon}
-              text={
-                status === 'deploying'
-                  ? 'Deploying…'
-                  : status === 'success'
-                    ? 'Deploy triggered'
-                    : status === 'error'
-                      ? 'Deploy failed'
-                      : 'Deploy'
-              }
+              text={LABELS[status]}
               tone={status === 'error' ? 'critical' : status === 'success' ? 'positive' : 'primary'}
-              disabled={status === 'deploying'}
-              onClick={handleDeploy}
+              disabled={status === 'publishing' || !REVALIDATE_SECRET}
+              onClick={handlePublish}
             />
-            {!HOOK_URL && (
+            {!REVALIDATE_SECRET && (
               <Text size={1} muted>
-                SANITY_STUDIO_NETLIFY_BUILD_HOOK_URL is not set.
+                SANITY_STUDIO_REVALIDATE_SECRET is not set.
               </Text>
             )}
           </Flex>

@@ -8,7 +8,9 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: !isPreviewSite,
+  // the CDN can lag a publish by ~60s, which would let /api/revalidate
+  // re-render pages with the old content
+  useCdn: false,
   perspective: "published",
   token,
   stega: {
